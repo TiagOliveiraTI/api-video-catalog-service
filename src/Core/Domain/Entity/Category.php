@@ -16,4 +16,14 @@ class Category
         protected bool $isActive = true
     ) {
     }
+
+    public function activate(): void
+    {
+        $this->isActive = true;
+    }
+
+    public function disable(): void
+    {
+        $this->isActive = false;
+    }
 }

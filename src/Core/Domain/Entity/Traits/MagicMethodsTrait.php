@@ -12,7 +12,7 @@ trait MagicMethodsTrait
     {
         $className = get_class($this);
 
-        if(!$this->{$property}) {
+        if(!isset($this->{$property})) {
             throw new Exception("Property $property not found in class $className");
         }
 
