@@ -1,3 +1,10 @@
 <?php
 
-phpinfo();
+require dirname(__DIR__ ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
+use Core\Teste;
+
+
+$teste = new Teste();
+
+var_dump($teste->foo());
