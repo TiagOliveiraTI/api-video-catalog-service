@@ -12,13 +12,19 @@
             "Core\\": "src/Core/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require-dev": {
-        "pestphp/pest": "^2.5",
-        "mockery/mockery": "^1.5"
+        "infection/infection": "^0.27.0",
+        "phpunit/phpunit": "^10.1",
+        "phpunit/php-code-coverage": "^10.1"
     },
     "config": {
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "infection/extension-installer": true
         }
     }
 }
