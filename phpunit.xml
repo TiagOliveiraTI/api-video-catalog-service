@@ -6,6 +6,7 @@
   colors="true" 
   stopOnFailure="true" 
   cacheDirectory="./vendor/.phpunit.cache"
+  testdox="true"
 >
   <testsuites>
     <testsuite name="Test Suite">
