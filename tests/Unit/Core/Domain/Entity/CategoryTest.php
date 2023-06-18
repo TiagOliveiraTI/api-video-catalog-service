@@ -5,6 +5,7 @@ namespace Tests\Unit\Core\Domain\Entity;
 use PHPUnit\Framework\TestCase;
 use Core\Domain\Entity\Category;
 use Core\Domain\Dto\CategoryInputDto;
+use Core\Domain\Exceptions\EntityValidationException;
 
 class CategoryTest extends TestCase
 {
@@ -92,5 +93,34 @@ class CategoryTest extends TestCase
         $this->assertEquals('new_category_name', $sut->name);
         $this->assertEquals('new_category_description', $sut->description);
         $this->assertTrue($sut->isActive);
+    }
+
+    public function testValidateMethodIsCalledInConstructor()
+    {
+        $this->expectException(EntityValidationException::class);
+        $this->expectExceptionMessage('name cannot be less than 3');
+
+        $category = new Category('', 'ab', '', true);
+    }
+
+    public function testExceptionName()
+    {
+        $this->expectException(EntityValidationException::class);
+        $this->expectExceptionMessage('name cannot be less than 3');
+
+        $uuid = 'uuid.value';
+
+        $categoryInputDto = new CategoryInputDto(
+            name: 'any', 
+            description: 'ane description'
+        );
+
+        $category = new Category(
+            id: $uuid,
+            name: $categoryInputDto->name,
+            description: $categoryInputDto->description
+        );
+
+        $category->update('a');
     }
 }
