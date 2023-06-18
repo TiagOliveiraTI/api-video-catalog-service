@@ -40,6 +40,10 @@ class Category
 
     private function validate()
     {
+        if (empty($this->name)) {
+            throw new EntityValidationException('name cannot be empty');
+        }
+
         if (strlen($this->name) <= 2) {
             throw new EntityValidationException('name cannot be less than 3');
         }
