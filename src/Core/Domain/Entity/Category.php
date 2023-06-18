@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Core\Domain\Entity;
 
 use Core\Domain\Entity\Traits\MagicMethodsTrait;
+use Core\Domain\Exceptions\EntityValidationException;
 
 class Category
 {
@@ -16,6 +17,7 @@ class Category
         protected string $description = '',
         protected bool $isActive = true
     ) {
+        $this->validate();
     }
 
     public function activate(): void
@@ -32,5 +34,14 @@ class Category
     {
         $this->name = $name;
         $this->description = $description;
+
+        $this->validate();
+    }
+
+    private function validate()
+    {
+        if (strlen($this->name) <= 2) {
+            throw new EntityValidationException('name cannot be less than 3');
+        }
     }
 }
