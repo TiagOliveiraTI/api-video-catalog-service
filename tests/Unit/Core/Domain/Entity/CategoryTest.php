@@ -103,7 +103,7 @@ class CategoryTest extends TestCase
         $category = new Category('', 'ab', '', true);
     }
 
-    public function testExceptionName()
+    public function testShouldReturnAnExceptionIfNameIsLessThan3()
     {
         $this->expectException(EntityValidationException::class);
         $this->expectExceptionMessage('name cannot be less than 3');
@@ -112,7 +112,7 @@ class CategoryTest extends TestCase
 
         $categoryInputDto = new CategoryInputDto(
             name: 'any', 
-            description: 'ane description'
+            description: 'any description'
         );
 
         $category = new Category(
@@ -122,5 +122,24 @@ class CategoryTest extends TestCase
         );
 
         $category->update('a');
+    }
+
+    public function testShouldReturnAnExceptionIfNameIsEmpty()
+    {
+        $this->expectException(EntityValidationException::class);
+        $this->expectExceptionMessage('name cannot be empty');
+
+        $uuid = 'uuid.value';
+
+        $categoryInputDto = new CategoryInputDto(
+            name: '', 
+            description: 'any description'
+        );
+
+        $category = new Category(
+            id: $uuid,
+            name: $categoryInputDto->name,
+            description: $categoryInputDto->description
+        );
     }
 }
