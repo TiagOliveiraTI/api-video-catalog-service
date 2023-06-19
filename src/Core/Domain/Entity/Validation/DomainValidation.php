@@ -25,4 +25,14 @@ class DomainValidation
             throw new EntityValidationException($exceptionMessage ?? "the max value is {$maxValue} characters.");
         }
     }
+
+    public static function stringMinLength(
+        string $string, 
+        int $minValue,
+        ?string $exceptionMessage = null
+    ) {
+        if(strlen($string) <= $minValue) {
+            throw new EntityValidationException($exceptionMessage ?? "the minimum value is {$minValue} characters.");
+        }
+    }
 }
