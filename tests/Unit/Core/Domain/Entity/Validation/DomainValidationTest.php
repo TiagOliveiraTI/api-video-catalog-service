@@ -73,4 +73,51 @@ class DomainValidationTest extends TestCase
         DomainValidation::stringMaxLength($string, $maxValue, $exceptionMessage);
     }
 
+    public function testStringMinLengthThrowsExceptionForMinLength()
+    {
+        $string = 'short';
+        $minValue = 6;
+        $exceptionMessage = 'Custom exception message';
+
+        $this->expectException(EntityValidationException::class);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        DomainValidation::stringMinLength($string, $minValue, $exceptionMessage);
+    }
+
+    public function testStringMinLengthThrowsExceptionForEqualMinLength()
+    {
+        $string = 'minimum';
+        $minValue = strlen($string);
+        $exceptionMessage = null;
+
+        $this->expectException(EntityValidationException::class);
+        $this->expectExceptionMessage("the minimum value is {$minValue} characters.");
+
+        DomainValidation::stringMinLength($string, $minValue, $exceptionMessage);
+    }
+
+    public function testStringMinLengthDoesNotThrowExceptionForLessThanMinLength()
+    {
+        $string = 'Short value';
+        $minValue = 6;
+        $exceptionMessage = null;
+
+        $this->expectNotToPerformAssertions();
+
+        DomainValidation::stringMinLength($string, $minValue, $exceptionMessage);
+    }
+
+    public function testStringMinLengthThrowsExceptionWithCustomExceptionMessage()
+    {
+        $string = 'Too short string';
+        $minValue = 20;
+        $exceptionMessage = 'Custom exception message';
+
+        $this->expectException(EntityValidationException::class);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        DomainValidation::stringMinLength($string, $minValue, $exceptionMessage);
+    }
+
 }
