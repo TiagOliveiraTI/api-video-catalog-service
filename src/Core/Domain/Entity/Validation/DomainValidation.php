@@ -15,4 +15,14 @@ class DomainValidation
             throw new EntityValidationException($exceptionMessage ?? "should not be empty.");
         }
     }
+
+    public static function stringMaxLength(
+        string $string, 
+        int $maxValue,
+        ?string $exceptionMessage = null
+    ) {
+        if(strlen($string) >= $maxValue) {
+            throw new EntityValidationException($exceptionMessage ?? "the max value is {$maxValue} characters.");
+        }
+    }
 }
